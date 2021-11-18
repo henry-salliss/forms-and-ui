@@ -1,34 +1,46 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 const SimpleInput = (props) => {
   const [name, setName] = useState("");
+  const [nameTouched, setNameTouched] = useState(false);
 
-  const nameRef = useRef();
+  const nameIsValid = nameTouched && name.trim() !== "";
+  const nameIsInvalid = nameTouched && !nameIsValid;
 
   const nameChangeHandler = (e) => {
     setName(e.target.value);
   };
 
+  const nameBlurHandler = (e) => {
+    setNameTouched(true);
+  };
+
   const formHandler = (e) => {
     e.preventDefault();
-    const enteredValue = nameRef.current.value;
-    console.log(enteredValue);
 
-    console.log(name);
+    // user has had chance to change input
+    setNameTouched(true);
+
+    if (!nameIsValid) return;
+    // input is valid and reset
     setName("");
+    setNameTouched(false);
   };
+
+  const formClasses = nameIsInvalid ? "form-control invalid" : "form-control";
 
   return (
     <form onSubmit={formHandler}>
-      <div className="form-control">
+      <div className={formClasses}>
         <label htmlFor="name">Your Name</label>
         <input
-          ref={nameRef}
           type="text"
           id="name"
           onChange={nameChangeHandler}
+          onBlur={nameBlurHandler}
           value={name}
         />
+        {nameIsInvalid && <p className="error-text">Name must not be empty</p>}
       </div>
       <div className="form-actions">
         <button>Submit</button>
