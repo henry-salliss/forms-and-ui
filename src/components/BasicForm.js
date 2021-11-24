@@ -1,5 +1,4 @@
-import { useState } from "react";
-import useInputBasic from "../hooks/basic-use-input";
+import useInput from "../hooks/basic-use-input";
 
 const BasicForm = (props) => {
   const {
@@ -9,7 +8,7 @@ const BasicForm = (props) => {
     inputChangeHandler: firstNameChangeHandler,
     inputBlurHandler: firstNameBlurHandler,
     reset: firstNameReset,
-  } = useInputBasic((value) => value !== "");
+  } = useInput((value) => value !== "");
 
   const firstNameClasses = firstNameIsValid
     ? "form-control"
@@ -22,7 +21,7 @@ const BasicForm = (props) => {
     inputChangeHandler: lastNameChangeHandler,
     inputBlurHandler: lastNameBlurHandler,
     reset: lastNameReset,
-  } = useInputBasic((value) => value !== "");
+  } = useInput((value) => value !== "");
 
   const lastNameClasses = lastNameIsValid
     ? "form-control"
@@ -35,7 +34,7 @@ const BasicForm = (props) => {
     inputChangeHandler: emailChangeHandler,
     inputBlurHandler: emailBlurHandler,
     reset: emailReset,
-  } = useInputBasic((value) => value !== "" && value.includes("@"));
+  } = useInput((value) => value !== "" && value.includes("@"));
 
   const emailClasses = emailIsValid ? "form-control" : "form-control invalid";
 
